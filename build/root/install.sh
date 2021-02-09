@@ -5,30 +5,14 @@ set -e
 
 # note do NOT download build scripts - inherited from int script with envvars common defined
 
-# detect image arch
-####
-
-OS_ARCH=$(cat /etc/os-release | grep -P -o -m 1 "(?=^ID\=).*" | grep -P -o -m 1 "[a-z]+$")
-if [[ ! -z "${OS_ARCH}" ]]; then
-	if [[ "${OS_ARCH}" == "arch" ]]; then
-		OS_ARCH="x86-64"
-	else
-		OS_ARCH="aarch64"
-	fi
-	echo "[info] OS_ARCH defined as '${OS_ARCH}'"
-else
-	echo "[warn] Unable to identify OS_ARCH, defaulting to 'x86-64'"
-	OS_ARCH="x86-64"
-fi
-
 # pacman packages
 ####
 
 # call pacman db and package updater script
-source upd.sh
+pacman -Syyu --noconfirm
 
 # define pacman packages
-pacman_packages="libtorrent-rasterbar openssl python-chardet python-dbus python-distro python-geoip python-idna python-mako python-pillow python-pyopenssl python-rencode python-service-identity python-setproctitle python-six python-future python-requests python-twisted python-xdg python-zope-interface xdg-utils libappindicator-gtk3 deluge"
+pacman_packages="libtorrent-rasterbar openssl python-chardet python-dbus python-distro python-geoip python-idna python-mako python-pillow python-pyopenssl python-rencode python-service-identity python-setproctitle python-six python-future python-requests python-twisted python-xdg python-zope-interface xdg-utils libappindicator-gtk3 procps-ng deluge"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
@@ -39,10 +23,10 @@ fi
 ####
 
 # define aur packages
-aur_packages=""
+# aur_packages=""
 
 # call aur install script (arch user repo)
-source aur.sh
+# source aur.sh
 
 # tweaks
 ####
