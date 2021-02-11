@@ -12,21 +12,15 @@ set -e
 pacman -Syyu --noconfirm
 
 # define pacman packages
-pacman_packages="libtorrent-rasterbar openssl python-chardet python-dbus python-distro python-geoip python-idna python-mako python-pillow python-pyopenssl python-rencode python-service-identity python-setproctitle python-six python-future python-requests python-twisted python-xdg python-zope-interface xdg-utils libappindicator-gtk3 procps-ng deluge"
+pacman_packages="python-pip libtorrent-rasterbar openssl python-chardet python-dbus python-distro python-geoip python-idna python-mako python-pillow python-pyopenssl python-rencode python-service-identity python-setproctitle python-six python-future python-requests python-twisted python-xdg python-zope-interface xdg-utils libappindicator-gtk3 procps-ng"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
 	pacman -S --needed $pacman_packages --noconfirm
 fi
 
-# aur packages
-####
-
-# define aur packages
-# aur_packages=""
-
-# call aur install script (arch user repo)
-# source aur.sh
+# install deluge 2.0.3
+pip install deluge==2.0.3
 
 # tweaks
 ####
@@ -38,7 +32,7 @@ mkdir -p /home/nobody/.cache/Python-Eggs
 chmod -R 700 /home/nobody/.cache/Python-Eggs
 
 # change peerid to appear to be 2.0.3 stable - note this does not work for all/any private trackers at present
-sed -i -e "s~peer_id = substitute_chr(peer_id, 6, release_chr)~peer_id = \'--DE203s--\'\n        release_chr = \'s\'~g" /usr/lib/python3*/site-packages/deluge/core/core.py
+# sed -i -e "s~peer_id = substitute_chr(peer_id, 6, release_chr)~peer_id = \'--DE203s--\'\n        release_chr = \'s\'~g" /usr/lib/python3*/site-packages/deluge/core/core.py
 
 # container perms
 ####

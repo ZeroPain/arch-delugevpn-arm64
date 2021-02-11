@@ -13,9 +13,9 @@ This Docker includes OpenVPN and WireGuard to ensure a secure and private connec
 
 **Build notes**
 
-Latest stable Deluge release from Arch Linux repo.  
-Latest stable Privoxy release from Arch Linux repo.  
-Latest stable OpenVPN release from Arch Linux repo.  
+Deluge 2.0.3.
+Latest stable Privoxy release from Arch Linux repo.
+Latest stable OpenVPN release from Arch Linux repo.
 Latest stable WireGuard release from Arch Linux repo.
 
 **Usage**
