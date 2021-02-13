@@ -7,8 +7,9 @@ LABEL maintainer="github.com/razaqq"
 # add supervisor conf file for app
 ADD build/*.conf /etc/supervisor/conf.d/
 
-# add bash scripts to install app
+# add bash/python scripts to install app
 ADD build/root/*.sh /root/
+ADD build/root/*.py /root/
 
 # add bash script to setup iptables
 ADD run/root/*.sh /root/
@@ -22,6 +23,9 @@ ADD run/nobody/*.py /home/nobody/
 # add pre-configured config files for deluge
 ADD config/nobody/ /home/nobody/
 
+# add webui theme
+ADD build/webui /root/webui
+
 # install app
 #############
 
@@ -34,7 +38,7 @@ RUN chmod +x /root/*.sh /home/nobody/*.sh /home/nobody/*.py && \
 
 # copy webui theme
 RUN python -c "import os; import site; print(os.path.join(site.getsitepackages()[0], 'deluge', 'web'))" \
-	| sed 's/.*/"&"/' | xargs cp -r /root/webui/*
+	| sed 's/.*/"&"/' | xargs cp -r /root/webui/* && rm -rf /root/webui
 
 RUN ["docker-build-end"]
 
