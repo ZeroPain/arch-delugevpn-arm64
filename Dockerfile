@@ -7,8 +7,9 @@ LABEL maintainer="github.com/razaqq"
 # add supervisor conf file for app
 ADD build/*.conf /etc/supervisor/conf.d/
 
-# add bash scripts to install app
+# add bash/python scripts to install app
 ADD build/root/*.sh /root/
+ADD build/root/*.py /root/
 
 # add bash script to setup iptables
 ADD run/root/*.sh /root/
@@ -29,7 +30,7 @@ RUN ["docker-build-start"]
 
 # make executable and run bash scripts to install app
 RUN chmod +x /root/*.sh /home/nobody/*.sh /home/nobody/*.py && \
-	/bin/bash /root/install.sh
+	/bin/bash /root/install.sh && python /root/fix_deluge_plugins.py
 
 RUN ["docker-build-end"]
 
