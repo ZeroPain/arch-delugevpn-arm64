@@ -24,7 +24,7 @@ ADD run/nobody/*.py /home/nobody/
 ADD config/nobody/ /home/nobody/
 
 # add webui theme
-ADD build/webui /root/webui
+ADD build/root/webui /root/webui
 
 # install app
 #############
@@ -37,7 +37,7 @@ RUN chmod +x /root/*.sh /home/nobody/*.sh /home/nobody/*.py && \
 	python /root/fix_deluge_plugins.py
 
 # copy webui theme
-RUN python -c "import os; import site; print(os.path.join(site.getsitepackages()[0], 'deluge', 'web'))" \
+RUN python -c "import os; import site; print(os.path.join(site.getsitepackages()[0], 'deluge', 'ui', 'web'))" \
 	| sed 's/.*/"&"/' | xargs cp -r /root/webui/* && rm -rf /root/webui
 
 RUN ["docker-build-end"]
