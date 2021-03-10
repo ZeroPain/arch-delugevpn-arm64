@@ -1,4 +1,4 @@
-FROM razaqq/arch-int-vpn-armhf:latest
+FROM razaqq/arch-int-vpn-arm64:latest
 LABEL maintainer="github.com/razaqq"
 
 # additional files
