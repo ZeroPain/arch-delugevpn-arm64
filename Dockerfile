@@ -29,8 +29,6 @@ ADD build/root/webui /root/webui
 # install app
 #############
 
-RUN ["docker-build-start"]
-
 # make executable and run bash scripts to install app
 RUN chmod +x /root/*.sh /home/nobody/*.sh /home/nobody/*.py && \
 	/bin/bash /root/install.sh && \
@@ -39,8 +37,6 @@ RUN chmod +x /root/*.sh /home/nobody/*.sh /home/nobody/*.py && \
 # copy webui theme
 RUN python -c "import os; import site; print(os.path.join(site.getsitepackages()[0], 'deluge', 'ui', 'web'))" \
 	| sed 's/.*/"&"/' | xargs cp -r /root/webui/* && rm -rf /root/webui
-
-RUN ["docker-build-end"]
 
 # docker settings
 #################
